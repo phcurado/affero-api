@@ -2,21 +2,18 @@ package com.afferolab.apptest.resources;
 
 import com.afferolab.apptest.api.Product;
 import com.afferolab.apptest.dao.ProductDAO;
-import com.codahale.metrics.annotation.Timed;
 import com.google.common.base.Optional;
 
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.LongParam;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.List;
 
 @Path("/products")
@@ -46,5 +43,15 @@ public class ProductResource {
     @UnitOfWork
     public Optional<Product> findById(@PathParam("id") LongParam id) {
         return productDAO.findById(id.get());
+    }
+
+    @DELETE
+    @Path("/{id}")
+    @UnitOfWork
+    public void delete(@PathParam("id") LongParam id) {
+        Optional<Product> product = productDAO.findById(id.get());
+        if (product != null) {
+            productDAO.delete(product.get());
+        }
     }
 }

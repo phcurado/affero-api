@@ -22,6 +22,10 @@ public class ProductDAO extends AbstractDAO<Product> {
         return persist(product);
     }
 
+    public void delete(Product product) {
+        currentSession().delete(product);
+    }
+
     public Optional<Product> findById(long id) {
         return Optional.fromNullable(get(id));
     }
