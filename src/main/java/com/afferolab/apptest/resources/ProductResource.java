@@ -10,12 +10,14 @@ import io.dropwizard.jersey.params.LongParam;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.List;
 
 @Path("/products")
 @Produces(MediaType.APPLICATION_JSON)
@@ -25,6 +27,12 @@ public class ProductResource {
 
     public ProductResource(ProductDAO productDAO) {
         this.productDAO = productDAO;
+    }
+
+    @GET
+    @UnitOfWork
+    public List<Product> findByName() {
+        return productDAO.findAll();
     }
 
     @POST

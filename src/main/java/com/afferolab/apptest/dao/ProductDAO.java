@@ -14,6 +14,10 @@ public class ProductDAO extends AbstractDAO<Product> {
         super(factory);
     }
 
+    public List<Product> findAll() {
+        return list(namedQuery("com.afferolab.apptest.core.Product.findAll"));
+    }
+
     public Product createOrUpdate(Product product) {
         return persist(product);
     }
