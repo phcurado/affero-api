@@ -1,4 +1,10 @@
 logging:
-  level: INFO
+  level: DEBUG
   loggers:
     com.afferolab.apptest: DEBUG
+
+database:
+  driverClass: com.mysql.cj.jdbc.Driver
+  user: root
+  password: root
+  url: jdbc:mysql://localhost:3306/Apptest
